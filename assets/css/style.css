@@ -400,8 +400,6 @@ main .about { display: flex; height: 100vh; padding-bottom: 10vh; padding-top: 1
 
 @media screen and (min-width: 769px) { main .about { position: fixed; max-width: 280px; } }
 
-main .about .hide { display: block; }
-
 main .about h2 { font-size: 22px; margin-top: 25px; margin-bottom: 0; color: #222222; font-weight: normal; }
 
 main .about .tagline { text-align: center; font-size: 22px; margin-top: 0px; color: #aaa; white-space: pre-wrap; line-height: normal; }
