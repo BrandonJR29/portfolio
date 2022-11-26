@@ -2,13 +2,14 @@
 layout: post
 title:  Liquid Soap Vending Machine
 date:   2021-06-01 00:00:00 -0400
-categories: C/C++ Python IoT FreeRTOS Websocket HTTP OOP
+categories: C/C++ Python IoT FreeRTOS Websocket HTTP OOP Javascript
 ---
 
 <div style="text-align: justify">
 After some experience developing projects such as IoT products, embedded systems, and control systems under the supervision of a senior engineer and with the support of others Embedded Software Engineers. One opportunity showed up and at that time I was on my own, therefore I must design the embedded software solution from the beginning, the test cases, developing a good-performance final product, and achieve all the client requirements. The Liquid Soap Vending Machine was one of the best experiences I've ever had, working with people that I didn't know and being in charge of one of the most important parts of the project.
 </div>
 <br/>
+
 ## The team
 
 <div style="text-align: justify">
@@ -17,7 +18,17 @@ In this project, I worked as a contractor with the Embedded Software Engineer ro
 
 <img alt="Team" src="/portfolio/assets/lsvm_team.jpg" style="width: 65%; display: block; margin: 0 auto;"/>
 <br/>
-## Chalenges
+
+## Challenges
+
+According to the client's requirements we found the below challenges:
+
+- Design the Liquid Soap Vending Machine.
+- Being in charge of the Embedded Software development.
+- Avoid activation from foreign devices.
+- The dispensing machine error must be under 3%.
+
+<br/>
 
 ## Tasks
 
@@ -44,6 +55,12 @@ So, the main activities that I did in this project were:
 - Design a Demo of the embedded system.
 - Contribute to the design of the machine.
 - Generate the system documentation, I used Doxygen to automate this task through code comments.
+
+Below you can watch a demo that I did for this project where I test the sensor, actuators, and app logic. I used my abilities in web development with javascript for creating this interface and embedded the files in the microcontroller as an Embedded Web server.
+
+<video controls style="width: 40%; display: block; margin: 0 auto;">
+  <source src="/portfolio/assets/lsvm_video2.mp4">
+</video>
 
 <br/>
 
@@ -91,8 +108,9 @@ This project was full of lessons some of which were:
 - Contribute to the creative process of the final product, also show that it's important to develop that part of the project too, how this could interact with people, which is the best way, etc.
 - Watching my partner's job, give me more knowledge than I had when I started the project, believe me watching other people's jobs could teach you something.
 
-In the end, I think for these reasons I feel happy and satisfied about the achievement of this project, how I made as a leader of the Embedded Software development, as well as contributed to the team this time. 
-
+<div style="text-align: justify">
+Finally, I think for these reasons I feel happy and satisfied about the achievement of this project, how I made it as a leader of the Embedded Software development, as well as contributing to the team. If you have any doubts about this project please don't hesitate to ask me by sending me an email, I would be happy to answer your questions thanks for reading this. 
+</div>
 
 
 
