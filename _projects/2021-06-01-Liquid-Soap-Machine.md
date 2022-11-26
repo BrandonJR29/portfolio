@@ -36,11 +36,14 @@ According to the client's requirements we found the below challenges:
 The tasks that I covered in this project were not only related to Embedded Software development but also contribute to the decisions about the machine structure and which sensor and actuators (including the pump) we should choose. This gives me the expertise of how to get involved in different areas by giving my knowledge about embedded systems in the final product.
 </div>
 <br/>
+
+<img alt="Machine review" src="/portfolio/assets/lsvm_team2.jpg" style="width: 60%; display: block; margin: 0 auto;"/>
+
 <div style="text-align: justify">
 As my role demanded, I defined the hardware requirements of the systems, as well as the software development that would be working in it. I developed this using C/C++ using object-oriented programming implementing the Observable and State design pattern. About the software architecture, I designed the system to work through Events taking advantage of the real-time operating system that I used, FreeRTOS with Events Groups. Furthermore, as I said at the beginning I designed the test cases of the hardware, mocking some of the sensors or actuators due to I couldn't make tests with real hardware every time (The machine couldn't be at my home), and I did this using Python with HTTP client scripts connecting to the Embedded Web Server and sending a request and mocking the output of the system. By doing this I was sure that the logic of the system was ok. Something that was really important in this system was to develop the control for the dispensing of liquid soap. For this, I estimated the plant equation and designed the PI controller for the dispensing task according to it.
 </div>
 
-<img alt="Hardware Prototype" src="/portfolio/assets/lsvm_prototype.png" style="width: 60%; display: block; margin: 0 auto;"/>
+<img alt="Hardware Prototype" src="/portfolio/assets/lsvm_prototype.png" style="width: 45%; display: block; margin: 0 auto;"/>
 
 <div style="text-align: justify">
 So, the main activities that I did in this project were:
