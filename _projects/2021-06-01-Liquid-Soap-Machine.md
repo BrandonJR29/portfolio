@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  Liquid Soap Vending Machine
-date:   2021-06-01 00:00:00 -0400
+date:   2022-06-01 00:00:00 -0400
 categories: C/C++ Python IoT FreeRTOS Websocket HTTP OOP Javascript
 ---
 
@@ -70,7 +70,7 @@ Below you can watch a demo that I did for this project where I test the sensor, 
 ## Results
 
 <div style="text-align: justify">
-After going through bugs, connection failures, etc. The team successfully developed the Liquid Soap Machine, watching these results:
+Although the team went through bugs, connection failures, etc. The team successfully developed the Liquid Soap Machine, watching these results:
 </div>
 
 - Complete the first version of the Liquid Soap Machine.
@@ -78,6 +78,7 @@ After going through bugs, connection failures, etc. The team successfully develo
 - Save the client data in a robust Database on another local server.
 - Show the dispensing process in real time to the users.
 - Detect common errors in the machine such as when a user releases the soap container while the machine is dispensing.
+
 
 <video controls style="width: 40%; display: block; margin: 0 auto;">
   <source src="/portfolio/assets/lsvm_video1.mp4">
@@ -97,14 +98,11 @@ Despite the fact that we satisfied the client's requirements for this first vers
 - Another advantage of using a camera with an AI solution is for authenticating user bills, just imagine if the user only needs to show the bill and the system process the control task, of course, the system must detect if the bill is genuine too.
 
 
-
 <br/>
 
 ## Conclusions
 
-<div style="text-align: justify">
 This project was full of lessons some of which were:
-</div>
 
 - How to explain technical tasks to people who don't know something about this, using diagrams and looking for ways to explain some technology with daily life examples.
 - Another good lesson was how to handle responsibility and my answer to that is being honest with your team, despite the fact that I was alone in my area I felt that I wasn't alone, talking about my concerns about the embedded software development tasks the team helps me to implement them successfully.
