@@ -2,7 +2,7 @@
 layout: post
 title:  Liquid Soap Vending Machine
 date:   2022-06-01 00:00:00 -0400
-categories: C/C++ Python IoT FreeRTOS Websocket HTTP OOP Javascript
+categories: C/C++ Python IoT Control FreeRTOS Websocket HTTP OOP Javascript
 ---
 
 <div style="text-align: justify">
