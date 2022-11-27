@@ -41,9 +41,9 @@ The App was focused to do two things: registering dataloggers through bar code, 
 - Send the data to the server.
 - Change the barcode scanner to use the camera instead of the scanner in order to reduce the cost of the solution.
 
-<img alt="Machine review" src="/portfolio/assets/estelio_cold_chain.png" style="width: 100%; display: block; margin: 0 auto;"/>
+<img alt="Machine review" src="/portfolio/assets/images/iotcoldchain/estelio_cold_chain.png" style="width: 100%; display: block; margin: 0 auto;"/>
 <br>
-<img alt="Machine review" src="/portfolio/assets/estelio_cold_chain_photo.jpg" style="width: 40%; display: block; margin: 0 auto;"/>
+<img alt="Machine review" src="/portfolio/assets/images/iotcoldchain/estelio_cold_chain_photo.jpg" style="width: 40%; display: block; margin: 0 auto;"/>
 
 
 ## Results
@@ -59,7 +59,7 @@ The project accomplished all the requirements since extracting the barcode and s
 
 
 <video controls style="width: 50%; display: block; margin: 0 auto;">
-  <source src="/portfolio/assets/estelio_cold_chain.mp4">
+  <source src="/portfolio/assets/videos/iotcoldchain/estelio_cold_chain.mp4">
 </video>
 
 
@@ -83,6 +83,6 @@ Watching this project finished I only could think of the challenges that the tea
 - Knowing new technologies that you already use in your daily life give you a better background when you have to integrate that into another project.
 
 <div style="text-align: justify">
-With this I feel satisfied with the first version of the mobile, maybe you could think if it is in the Google play store now, unfortunately, this was a demo and after that, I move to another opportunity in a different job, the last thing that I know about the app was that it has changed a lot. I only could say thanks for having this experience and of course, if you have any questions about this don't hesitate an email me, and I will answer you back ASAP.
+With this I feel satisfied with the first version of the mobile app, maybe you could think if it is in the Google play store now, unfortunately, this was a demo and after that, I moved to another opportunity in a different job, the last thing that I know about the app was that it has changed a lot. I only could say thanks for having this experience and of course, if you have any questions about this don't hesitate an email me, and I will answer you back ASAP.
 </div>
 

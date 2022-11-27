@@ -16,7 +16,7 @@ After some experience developing projects such as IoT products, embedded systems
 In this project, I worked as a contractor with the Embedded Software Engineer role where the client established the machine requirements and our communication with them was by the product owner. The group was conformed of a Fullstack Engineer, Mechanical Engineer, Hardware Designer, Scrum Master, Product Owner, and myself. The strategy was developed by the product owner and the scrum master: a meeting via video call twice a week for planning, watching the results, and determining the next steps, and once a week we made tests in the machine with the hardware. Furthermore, we use Jira Software as a task scheduler and also measure the development of the project.
 </div>
 
-<img alt="Team" src="/portfolio/assets/lsvm_team.jpg" style="width: 65%; display: block; margin: 0 auto;"/>
+<img alt="Team" src="/portfolio/assets/images/lsvm/lsvm_team.jpg" style="width: 65%; display: block; margin: 0 auto;"/>
 <br/>
 
 ## Challenges
@@ -37,13 +37,13 @@ The tasks that I covered in this project were not only related to Embedded Softw
 </div>
 <br/>
 
-<img alt="Machine review" src="/portfolio/assets/lsvm_team2.jpg" style="width: 60%; display: block; margin: 0 auto;"/>
+<img alt="Machine review" src="/portfolio/assets/images/lsvm/lsvm_team2.jpg" style="width: 60%; display: block; margin: 0 auto;"/>
 
 <div style="text-align: justify">
 As my role demanded, I defined the hardware requirements of the systems, as well as the software development that would be working in it. I developed this using C/C++ using object-oriented programming implementing the Observable and State design pattern. About the software architecture, I designed the system to work through Events taking advantage of the real-time operating system that I used, FreeRTOS with Events Groups. Furthermore, as I said at the beginning I designed the test cases of the hardware, mocking some of the sensors or actuators due to I couldn't make tests with real hardware every time (The machine couldn't be at my home), and I did this using Python with HTTP client scripts connecting to the Embedded Web Server and sending a request and mocking the output of the system. By doing this I was sure that the logic of the system was ok. Something that was really important in this system was to develop the control for the dispensing of liquid soap. For this, I estimated the plant equation and designed the PI controller for the dispensing task according to it.
 </div>
 
-<img alt="Hardware Prototype" src="/portfolio/assets/lsvm_prototype.png" style="width: 45%; display: block; margin: 0 auto;"/>
+<img alt="Hardware Prototype" src="/portfolio/assets/images/lsvm/lsvm_prototype.png" style="width: 45%; display: block; margin: 0 auto;"/>
 
 <div style="text-align: justify">
 So, the main activities that I did in this project were:
@@ -62,7 +62,7 @@ So, the main activities that I did in this project were:
 Below you can watch a demo that I did for this project where I test the sensor, actuators, and app logic. I used my abilities in web development with javascript for creating this interface and embedded the files in the microcontroller as an Embedded Web server.
 
 <video controls style="width: 40%; display: block; margin: 0 auto;">
-  <source src="/portfolio/assets/lsvm_video2.mp4">
+  <source src="/portfolio/assets/videos/lsvm/lsvm_video2.mp4">
 </video>
 
 <br/>
@@ -81,7 +81,7 @@ Although the team went through bugs, connection failures, etc. The team successf
 
 
 <video controls style="width: 40%; display: block; margin: 0 auto;">
-  <source src="/portfolio/assets/lsvm_video1.mp4">
+  <source src="/portfolio/assets/videos/lsvm/lsvm_video1.mp4">
 </video>
 
 <br/>
