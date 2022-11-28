@@ -12,8 +12,8 @@
 <meta name="generator" content="Jekyll v4.3.1" />
 <meta property="og:title" content="CNC Machine" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Embedded Software Engineer Electronic Engineer IoT Engineer" />
-<meta property="og:description" content="Embedded Software Engineer Electronic Engineer IoT Engineer" />
+<meta name="description" content="My first experience was updating a CNC Machine in a Security Illumination company in Venezuela, this was my innitial approach to the embedded system world and hardware development, in this job I made some hardware adaptations and also some tests in the machine itself before implementing a tested software solution." />
+<meta property="og:description" content="My first experience was updating a CNC Machine in a Security Illumination company in Venezuela, this was my innitial approach to the embedded system world and hardware development, in this job I made some hardware adaptations and also some tests in the machine itself before implementing a tested software solution." />
 <link rel="canonical" href="/portfolio/projects/2019-07-01-CNC-Machine.html" />
 <meta property="og:url" content="/portfolio/projects/2019-07-01-CNC-Machine.html" />
 <meta property="og:site_name" content="Brandon J - Embedded Software Engineer" />
@@ -22,7 +22,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="CNC Machine" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2019-07-01T00:00:00-04:00","datePublished":"2019-07-01T00:00:00-04:00","description":"Embedded Software Engineer Electronic Engineer IoT Engineer","headline":"CNC Machine","mainEntityOfPage":{"@type":"WebPage","@id":"/portfolio/projects/2019-07-01-CNC-Machine.html"},"url":"/portfolio/projects/2019-07-01-CNC-Machine.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2019-07-01T00:00:00-04:00","datePublished":"2019-07-01T00:00:00-04:00","description":"My first experience was updating a CNC Machine in a Security Illumination company in Venezuela, this was my innitial approach to the embedded system world and hardware development, in this job I made some hardware adaptations and also some tests in the machine itself before implementing a tested software solution.","headline":"CNC Machine","mainEntityOfPage":{"@type":"WebPage","@id":"/portfolio/projects/2019-07-01-CNC-Machine.html"},"url":"/portfolio/projects/2019-07-01-CNC-Machine.html"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -35,7 +35,7 @@
       <div class="about-title">
       <a href="/portfolio/">
         
-        <img class="hide" src="/portfolio/assets/photo1.png" alt="Brandon Jiménez" />
+        <img class="hide" src="/portfolio/assets/images/photo1.png" alt="Brandon Jiménez" />
         
       </a>
       <h2 id="title">
@@ -90,7 +90,103 @@
   <div class="post-meta">
     <div class="post-date"><i class="icon-calendar"></i>Jul 1, 2019</div><ul class="post-categories"><li>C/C++</li><li>Hardware</li><li>Arduino</li><li>CNC</li><li>GRBL</li></ul></div>
   <div class="post">
-    
+    <div style="text-align: justify">
+My first experience was updating a CNC Machine in a Security Illumination company in Venezuela, this was my innitial approach to the embedded system world and hardware development, in this job I made some hardware adaptations and also some tests in the machine itself before implementing a tested software solution.
+</div>
+
+<p><img alt="Machine review" src="/portfolio/assets/images/cnc/cnc3.jpg" style="width: 30%; display: block; margin: 0 auto;" /></p>
+
+<h2 id="the-team">The team</h2>
+
+<div style="text-align: justify">
+In this opportunity, I was an Electronic Engineer Intern, and I had support from a Senior Engineer.
+</div>
+
+<h2 id="challenges">Challenges</h2>
+
+<div style="text-align: justify">
+As this was my first time, I was so insecure about which going to be my tasks and also if I was capable of doing the job. Fortunately, I was in good hands my supervisor always show me the path to make this happen. My tasks in this project were:
+</div>
+
+<ul>
+  <li>Update the CNC Machine in a month.</li>
+  <li>Update hardware if it is necessary</li>
+  <li>Update system firmware if it is necessary.</li>
+  <li>Check the machine components.</li>
+</ul>
+
+<p><img alt="Machine review" src="/portfolio/assets/images/cnc/cnc2.png" style="width: 60%; display: block; margin: 0 auto;" /></p>
+
+<h2 id="tasks">Tasks</h2>
+
+<p>The tasks in this project were more related to hardware, below I share an image where I show how I implemented stop button by hardware and handle the PWM output.</p>
+
+<p><img alt="Machine review" src="/portfolio/assets/images/cnc/sch1.jpg" style="width: 60%; display: block; margin: 0 auto;" />
+<br /></p>
+
+<p><img alt="Machine review" src="/portfolio/assets/images/cnc/sch2.jpg" style="width: 60%; display: block; margin: 0 auto;" />
+This image show how I handle each binary sensor inputs
+<br /></p>
+
+<div style="text-align: justify">
+Another task that I did was to test the machine with some C++ test scripts, to be sure about the sensor condition, and also the actuators (Step Motors). In detail my tasks were:
+</div>
+
+<ul>
+  <li>Design the new hardware for the control task.</li>
+  <li>Design a button for stopping the machine by hardware.</li>
+  <li>Implement GRBL in the system.</li>
+  <li>Generate PCB examples.</li>
+  <li>Document the results.</li>
+</ul>
+
+<p><img alt="Machine review" src="/portfolio/assets/images/cnc/cnc1.png" style="width: 40%; display: block; margin: 0 auto;" />
+<br />
+<img alt="Machine review" src="/portfolio/assets/images/cnc/candle.png" style="width: 40%; display: block; margin: 0 auto;" /></p>
+
+<h2 id="results">Results</h2>
+
+<div style="text-align: justify">
+Despite the fact that I wasn't so confident about the results, the results were accepted and I have learned a lot from that. Some of the most important results were:
+</div>
+
+<ul>
+  <li>Make PCBs with a trace separation of around 0.5mm.</li>
+  <li>Create the PCB for the machine.</li>
+  <li>Activate the machine.\</li>
+</ul>
+
+<p><img alt="Machine review" src="/portfolio/assets/images/cnc/cnc4.png" style="width: 70%; display: block; margin: 0 auto;" />
+<br />
+<img alt="Machine review" src="/portfolio/assets/images/cnc/cnc5.png" style="width: 70%; display: block; margin: 0 auto;" />
+<br />
+<img alt="Machine review" src="/portfolio/assets/images/cnc/cnc6.png" style="width: 70%; display: block; margin: 0 auto;" />
+<br /></p>
+<video controls="" style="width: 40%; display: block; margin: 0 auto;">
+  <source src="/portfolio/assets/videos/cnc/cnc.mp4" />
+</video>
+
+<h2 id="next-steps">Next steps</h2>
+
+<p>I watched a lot of software solutions for CNC Machine using GRBL I think the next step for this project could be:</p>
+
+<ul>
+  <li>Integrate a new board with WiFi or Ethernet connection for automate the process or hardware generation in the company, imagine that you could finish your hardware design and just send it to a IP inside the company and the machine start making your PCB.</li>
+</ul>
+
+<h2 id="conclusions">Conclusions</h2>
+
+<p>Although it was my first experience, I did it excellently and also enjoy being on an engineering project with hardware and software development. After going through this the lessons that I learned were:</p>
+
+<ul>
+  <li>Listening to indications of your partners could save a lot of time.</li>
+  <li>The university taught me the basics and It´s so useful in the job.</li>
+  <li>It’s ok to not completely know about the solution it the beginning, research and knowing how to do things right it’s your main tool to solve any problem.</li>
+</ul>
+
+<div style="text-align: justify">
+The first approach to a job in any role it's so important, at that moment I didn't know how to do it right but being with a good team and the right people helps a lot, as well as implement the knowledge from the university and also trust yourself, with these keys there isn't any trouble that we couldn't make. If you have any question about this project please send me a email. Thanks for reading!.
+</div>
 
   </div></div>
 
@@ -138,9 +234,6 @@
   </main>
   
   <script type="text/javascript" src="/portfolio/assets/js/darkmode.js"></script>
-  
-  <script src="/portfolio/assets/js/simple-jekyll-search.min.js"></script>
-  <script src="/portfolio/assets/js/search.js"></script>
   
 </body>
 

@@ -12,8 +12,8 @@
 <meta name="generator" content="Jekyll v4.3.1" />
 <meta property="og:title" content="Maze out" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated." />
-<meta property="og:description" content="You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated." />
+<meta name="description" content="TODO: Explain this" />
+<meta property="og:description" content="TODO: Explain this" />
 <link rel="canonical" href="/portfolio/c++/coding_challenge/2022/11/25/Maze-out.html" />
 <meta property="og:url" content="/portfolio/c++/coding_challenge/2022/11/25/Maze-out.html" />
 <meta property="og:site_name" content="Brandon J - Embedded Software Engineer" />
@@ -22,7 +22,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Maze out" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-11-25T06:06:09-04:00","datePublished":"2022-11-25T06:06:09-04:00","description":"You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated.","headline":"Maze out","mainEntityOfPage":{"@type":"WebPage","@id":"/portfolio/c++/coding_challenge/2022/11/25/Maze-out.html"},"url":"/portfolio/c++/coding_challenge/2022/11/25/Maze-out.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-11-25T06:06:09-04:00","datePublished":"2022-11-25T06:06:09-04:00","description":"TODO: Explain this","headline":"Maze out","mainEntityOfPage":{"@type":"WebPage","@id":"/portfolio/c++/coding_challenge/2022/11/25/Maze-out.html"},"url":"/portfolio/c++/coding_challenge/2022/11/25/Maze-out.html"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -35,7 +35,7 @@
       <div class="about-title">
       <a href="/portfolio/">
         
-        <img class="hide" src="/portfolio/assets/photo1.png" alt="Brandon Jiménez" />
+        <img class="hide" src="/portfolio/assets/images/photo1.png" alt="Brandon Jiménez" />
         
       </a>
       <h2 id="title">
@@ -90,24 +90,314 @@
   <div class="post-meta">
     <div class="post-date"><i class="icon-calendar"></i>Nov 25, 2022</div><ul class="post-categories"><li>C++</li><li>Coding_Challenge</li></ul></div>
   <div class="post">
-    <p>You’ll find this post in your <code class="language-plaintext highlighter-rouge">_posts</code> directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run <code class="language-plaintext highlighter-rouge">jekyll serve</code>, which launches a web server and auto-regenerates your site when a file is updated.</p>
+    <p>TODO: Explain this</p>
 
-<p>Jekyll requires blog post files to be named according to the following format:</p>
+<h2 id="dfs">DFS</h2>
 
-<p><code class="language-plaintext highlighter-rouge">YEAR-MONTH-DAY-title.MARKUP</code></p>
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;tuple&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;stack&gt;</span><span class="cp">
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
-<p>Where <code class="language-plaintext highlighter-rouge">YEAR</code> is a four-digit number, <code class="language-plaintext highlighter-rouge">MONTH</code> and <code class="language-plaintext highlighter-rouge">DAY</code> are both two-digit numbers, and <code class="language-plaintext highlighter-rouge">MARKUP</code> is the file extension representing the format used in the file. After that, include the necessary front matter. Take a look at the source for this post to get an idea about how it works.</p>
+<span class="k">class</span> <span class="nc">MazeDfs</span>
+<span class="p">{</span>
+  <span class="nl">private:</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;&gt;</span> <span class="n">maze</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">limit_i</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">limit_j</span><span class="p">;</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">movements</span> <span class="o">=</span> <span class="p">{</span><span class="s">"left"</span><span class="p">,</span> <span class="s">"down"</span><span class="p">,</span> <span class="s">"right"</span><span class="p">,</span> <span class="s">"up"</span><span class="p">};</span>
 
-<p>Jekyll also offers powerful support for code snippets:</p>
+    <span class="kt">int</span> <span class="n">is_valid</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="kt">int</span> <span class="n">j</span><span class="p">){</span>
+      <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">limit_i</span> <span class="o">&amp;&amp;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">limit_j</span><span class="p">){</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">maze</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'1'</span><span class="p">){</span>
+          <span class="k">return</span> <span class="mi">2</span><span class="p">;</span>
+        <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">maze</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="sc">' '</span><span class="p">){</span>
+          <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">print_hi</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
-  <span class="nb">puts</span> <span class="s2">"Hi, </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">"</span>
-<span class="k">end</span>
-<span class="n">print_hi</span><span class="p">(</span><span class="s1">'Tom'</span><span class="p">)</span>
-<span class="c1">#=&gt; prints 'Hi, Tom' to STDOUT.</span></code></pre></figure>
+  <span class="nl">public:</span>
 
-<p>Check out the <a href="https://jekyllrb.com/docs/home">Jekyll docs</a> for more info on how to get the most out of Jekyll. File all bugs/feature requests at <a href="https://github.com/jekyll/jekyll">Jekyll’s GitHub repo</a>. If you have questions, you can ask them on <a href="https://talk.jekyllrb.com/">Jekyll Talk</a>.</p>
+    <span class="n">MazeDfs</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;&gt;</span><span class="n">maze</span><span class="p">)</span><span class="o">:</span> <span class="n">maze</span><span class="p">(</span><span class="n">maze</span><span class="p">){</span>
+      <span class="n">limit_i</span> <span class="o">=</span> <span class="n">maze</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+      <span class="n">limit_j</span> <span class="o">=</span> <span class="n">maze</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">size</span><span class="p">();</span>
+    <span class="p">}</span>
 
+    <span class="kt">int</span> <span class="n">solve</span><span class="p">(</span><span class="kt">int</span> <span class="n">pos_i</span><span class="p">,</span> <span class="kt">int</span> <span class="n">pos_j</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">tuple</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;&gt;&amp;</span> <span class="n">result_path</span><span class="p">,</span> <span class="n">string</span> <span class="n">prev_mov</span> <span class="o">=</span> <span class="s">""</span><span class="p">){</span>
+
+      <span class="kt">int</span> <span class="n">path</span> <span class="o">=</span> <span class="n">is_valid</span><span class="p">(</span><span class="n">pos_i</span><span class="p">,</span> <span class="n">pos_j</span><span class="p">);</span>
+      
+      <span class="k">if</span><span class="p">(</span><span class="n">path</span> <span class="o">==</span> <span class="mi">2</span><span class="p">){</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">movements</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">k</span><span class="o">++</span><span class="p">){</span>
+        
+        <span class="n">string</span> <span class="n">mov</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">pos_i</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">pos_j</span><span class="p">;</span>
+
+        <span class="k">if</span><span class="p">(</span><span class="n">movements</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">==</span> <span class="s">"up"</span><span class="p">){</span>
+          <span class="n">i</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span>
+          <span class="n">mov</span> <span class="o">=</span> <span class="s">"up"</span><span class="p">;</span>
+          <span class="k">if</span><span class="p">(</span><span class="n">prev_mov</span> <span class="o">==</span> <span class="s">"down"</span><span class="p">)</span> <span class="k">continue</span><span class="p">;</span>
+        <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">movements</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">==</span> <span class="s">"right"</span><span class="p">){</span>
+          <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+          <span class="n">mov</span> <span class="o">=</span> <span class="s">"right"</span><span class="p">;</span>
+          <span class="k">if</span><span class="p">(</span><span class="n">prev_mov</span> <span class="o">==</span> <span class="s">"left"</span><span class="p">)</span> <span class="k">continue</span><span class="p">;</span>
+        <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">movements</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">==</span> <span class="s">"down"</span><span class="p">){</span>
+          <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+          <span class="n">mov</span> <span class="o">=</span> <span class="s">"down"</span><span class="p">;</span>
+          <span class="k">if</span><span class="p">(</span><span class="n">prev_mov</span> <span class="o">==</span> <span class="s">"up"</span><span class="p">)</span> <span class="k">continue</span><span class="p">;</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+          <span class="n">j</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span>
+          <span class="n">mov</span> <span class="o">=</span> <span class="s">"left"</span><span class="p">;</span>
+          <span class="k">if</span><span class="p">(</span><span class="n">prev_mov</span> <span class="o">==</span> <span class="s">"right"</span><span class="p">)</span> <span class="k">continue</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="n">path</span> <span class="o">=</span> <span class="n">is_valid</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">);</span>
+
+        <span class="k">if</span><span class="p">(</span><span class="n">path</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">||</span> <span class="n">path</span> <span class="o">==</span> <span class="mi">1</span><span class="p">){</span>
+          <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">result_path</span> <span class="p">,</span> <span class="n">mov</span><span class="p">);</span>
+
+          <span class="k">if</span><span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="mi">1</span><span class="p">){</span>
+            <span class="n">result_path</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">make_tuple</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">));</span>
+            <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+
+      <span class="p">}</span>
+
+      <span class="k">return</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// This path is unsuccessful</span>
+    <span class="p">}</span>
+
+    <span class="n">vector</span><span class="o">&lt;</span><span class="n">tuple</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">solve</span><span class="p">(</span><span class="kt">int</span> <span class="n">pos_i</span><span class="p">,</span> <span class="kt">int</span> <span class="n">pos_j</span><span class="p">){</span>
+
+      <span class="n">stack</span><span class="o">&lt;</span><span class="n">tuple</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">st</span><span class="p">;</span>
+      <span class="n">tuple</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">visited</span><span class="p">[</span><span class="n">limit_i</span><span class="p">][</span><span class="n">limit_j</span><span class="p">];</span>
+      <span class="n">tuple</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">maze_out</span><span class="p">;</span>
+      <span class="n">vector</span><span class="o">&lt;</span><span class="n">tuple</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">result_path</span><span class="p">;</span>
+
+      <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">limit_i</span><span class="p">;</span> <span class="n">i</span> <span class="o">++</span><span class="p">){</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">limit_j</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">){</span>
+          <span class="n">visited</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_tuple</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+
+      <span class="n">st</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">make_tuple</span><span class="p">(</span><span class="n">pos_i</span><span class="p">,</span> <span class="n">pos_j</span><span class="p">));</span>
+      <span class="n">visited</span><span class="p">[</span><span class="n">pos_i</span><span class="p">][</span><span class="n">pos_j</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_tuple</span><span class="p">(</span><span class="n">pos_i</span><span class="p">,</span> <span class="n">pos_j</span><span class="p">);</span>
+
+      <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">st</span><span class="p">.</span><span class="n">empty</span><span class="p">()){</span>
+
+        <span class="n">tuple</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">current_pos</span> <span class="o">=</span> <span class="n">st</span><span class="p">.</span><span class="n">top</span><span class="p">();</span>
+        <span class="n">st</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+
+        <span class="kt">int</span> <span class="n">parent_i</span> <span class="o">=</span> <span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">(</span><span class="n">current_pos</span><span class="p">);</span>
+        <span class="kt">int</span> <span class="n">parent_j</span> <span class="o">=</span> <span class="n">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">(</span><span class="n">current_pos</span><span class="p">);</span>
+
+        <span class="k">if</span><span class="p">(</span><span class="n">is_valid</span><span class="p">(</span><span class="n">parent_i</span><span class="p">,</span> <span class="n">parent_j</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">){</span>
+          <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Finish"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+          <span class="n">maze_out</span> <span class="o">=</span> <span class="n">current_pos</span><span class="p">;</span>
+          <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">movements</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">k</span><span class="o">++</span><span class="p">){</span>
+
+          <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">parent_i</span><span class="p">;</span>
+          <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">parent_j</span><span class="p">;</span>
+
+          <span class="k">if</span><span class="p">(</span><span class="n">movements</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">==</span> <span class="s">"up"</span><span class="p">){</span>
+            <span class="n">i</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span>
+          <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">movements</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">==</span> <span class="s">"right"</span><span class="p">){</span>
+            <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+          <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">movements</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">==</span> <span class="s">"down"</span><span class="p">){</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+          <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="n">j</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span>
+          <span class="p">}</span>
+
+          <span class="k">if</span><span class="p">(</span><span class="n">is_valid</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">(</span><span class="n">visited</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">(</span><span class="n">visited</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+            <span class="n">st</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">make_tuple</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">));</span>
+            <span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">(</span><span class="n">visited</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span> <span class="o">=</span> <span class="n">parent_i</span><span class="p">;</span>
+            <span class="n">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">(</span><span class="n">visited</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span> <span class="o">=</span> <span class="n">parent_j</span><span class="p">;</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+
+      <span class="kt">int</span> <span class="n">m_i</span><span class="p">,</span> <span class="n">m_j</span><span class="p">;</span>
+
+      <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">){</span>
+        <span class="n">m_i</span> <span class="o">=</span> <span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">(</span><span class="n">maze_out</span><span class="p">);</span>
+        <span class="n">m_j</span> <span class="o">=</span> <span class="n">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">(</span><span class="n">maze_out</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">m_i</span> <span class="o">==</span> <span class="n">pos_i</span> <span class="o">&amp;&amp;</span> <span class="n">m_j</span> <span class="o">==</span> <span class="n">pos_j</span><span class="p">){</span>
+          <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">result_path</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">maze_out</span><span class="p">);</span>
+        <span class="n">maze_out</span> <span class="o">=</span> <span class="n">visited</span><span class="p">[</span><span class="n">m_i</span><span class="p">][</span><span class="n">m_j</span><span class="p">];</span>
+      <span class="p">}</span>
+
+      <span class="k">return</span> <span class="n">result_path</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+
+  <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;&gt;</span> <span class="n">maze</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">{</span><span class="sc">'#'</span><span class="p">,</span> <span class="sc">'#'</span><span class="p">,</span> <span class="sc">'#'</span><span class="p">,</span> <span class="sc">'#'</span><span class="p">,</span> <span class="sc">'#'</span><span class="p">,</span> <span class="sc">' '</span><span class="p">,</span> <span class="sc">'#'</span><span class="p">},</span>
+    <span class="p">{</span><span class="sc">'#'</span><span class="p">,</span> <span class="sc">' '</span><span class="p">,</span> <span class="sc">' '</span><span class="p">,</span> <span class="sc">'1'</span><span class="p">,</span> <span class="sc">'#'</span><span class="p">,</span> <span class="sc">' '</span><span class="p">,</span> <span class="sc">'#'</span><span class="p">},</span>
+    <span class="p">{</span><span class="sc">'#'</span><span class="p">,</span> <span class="sc">' '</span><span class="p">,</span> <span class="sc">'#'</span><span class="p">,</span> <span class="sc">'#'</span><span class="p">,</span> <span class="sc">'#'</span><span class="p">,</span> <span class="sc">' '</span><span class="p">,</span> <span class="sc">'#'</span><span class="p">},</span>
+    <span class="p">{</span><span class="sc">' '</span><span class="p">,</span> <span class="sc">' '</span><span class="p">,</span> <span class="sc">' '</span><span class="p">,</span> <span class="sc">' '</span><span class="p">,</span> <span class="sc">' '</span><span class="p">,</span> <span class="sc">' '</span><span class="p">,</span> <span class="sc">'#'</span><span class="p">}</span>
+  <span class="p">};</span>
+
+  <span class="n">MazeDfs</span> <span class="n">mdfs</span><span class="p">(</span><span class="n">maze</span><span class="p">);</span>
+  <span class="n">vector</span><span class="o">&lt;</span><span class="n">tuple</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">result</span><span class="p">;</span>
+  <span class="n">result</span> <span class="o">=</span> <span class="n">mdfs</span><span class="p">.</span><span class="n">solve</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+
+  <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">result</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">&lt;&lt;</span> <span class="s">", "</span> <span class="o">&lt;&lt;</span> <span class="n">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">&lt;&lt;</span> <span class="s">" &lt;- "</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="n">result</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="o">&lt;&lt;</span> <span class="s">", "</span> <span class="o">&lt;&lt;</span> <span class="n">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="n">result</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="o">&lt;&lt;</span> <span class="s">" &lt;- "</span><span class="p">;</span>
+  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"3, 0"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="bfs">BFS</h2>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;queue&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;tuple&gt;</span><span class="cp">
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">MazeBfs</span>
+<span class="p">{</span>
+  <span class="nl">private:</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;&gt;</span> <span class="n">maze</span><span class="p">;</span>
+    <span class="n">tuple</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">maze_out</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">limit_i</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">limit_j</span><span class="p">;</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">movements</span> <span class="o">=</span> <span class="p">{</span><span class="s">"up"</span><span class="p">,</span> <span class="s">"right"</span><span class="p">,</span> <span class="s">"down"</span><span class="p">,</span> <span class="s">"left"</span><span class="p">};</span>
+
+    <span class="kt">int</span> <span class="n">is_valid</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="kt">int</span> <span class="n">j</span><span class="p">){</span>
+      <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">limit_i</span> <span class="o">&amp;&amp;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">limit_j</span><span class="p">){</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">maze</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'1'</span><span class="p">){</span>
+          <span class="k">return</span> <span class="mi">2</span><span class="p">;</span>
+        <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">maze</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="sc">' '</span><span class="p">){</span>
+          <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+
+  <span class="nl">public:</span>
+
+    <span class="n">MazeBfs</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;&gt;</span><span class="n">maze</span><span class="p">)</span><span class="o">:</span> <span class="n">maze</span><span class="p">(</span><span class="n">maze</span><span class="p">){</span>
+      <span class="n">limit_i</span> <span class="o">=</span> <span class="n">maze</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+      <span class="n">limit_j</span> <span class="o">=</span> <span class="n">maze</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">size</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="n">vector</span><span class="o">&lt;</span><span class="n">tuple</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">solve</span><span class="p">(</span><span class="kt">int</span> <span class="n">pos_i</span><span class="p">,</span> <span class="kt">int</span> <span class="n">pos_j</span><span class="p">){</span>
+
+      <span class="n">queue</span><span class="o">&lt;</span><span class="n">tuple</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">q</span><span class="p">;</span>
+      <span class="n">vector</span><span class="o">&lt;</span><span class="n">tuple</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">result_path</span><span class="p">;</span>
+      <span class="kt">bool</span> <span class="n">finish</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+      <span class="n">tuple</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">visited</span><span class="p">[</span><span class="n">limit_i</span><span class="p">][</span><span class="n">limit_j</span><span class="p">];</span>
+
+      <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">limit_i</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">limit_j</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">){</span>
+          <span class="n">visited</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_tuple</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+
+
+      <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">make_tuple</span><span class="p">(</span><span class="n">pos_i</span><span class="p">,</span> <span class="n">pos_j</span><span class="p">));</span>
+      <span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">(</span><span class="n">visited</span><span class="p">[</span><span class="n">pos_i</span><span class="p">][</span><span class="n">pos_j</span><span class="p">])</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="n">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">(</span><span class="n">visited</span><span class="p">[</span><span class="n">pos_i</span><span class="p">][</span><span class="n">pos_j</span><span class="p">])</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+      <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">q</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="o">!</span> <span class="n">finish</span><span class="p">){</span>
+
+        <span class="n">tuple</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">current_pos</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">();</span>
+        <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">movements</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">k</span><span class="o">++</span><span class="p">){</span>
+
+          <span class="kt">int</span> <span class="n">parent_i</span> <span class="o">=</span> <span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">(</span><span class="n">current_pos</span><span class="p">);</span>
+          <span class="kt">int</span> <span class="n">parent_j</span> <span class="o">=</span> <span class="n">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">(</span><span class="n">current_pos</span><span class="p">);</span>
+
+          <span class="k">if</span><span class="p">(</span><span class="n">is_valid</span><span class="p">(</span><span class="n">parent_i</span><span class="p">,</span> <span class="n">parent_j</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">){</span>
+            <span class="n">finish</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+            <span class="n">maze_out</span> <span class="o">=</span> <span class="n">make_tuple</span><span class="p">(</span><span class="n">parent_i</span><span class="p">,</span> <span class="n">parent_j</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+          <span class="p">}</span>
+
+          <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">parent_i</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">parent_j</span><span class="p">;</span>
+
+          <span class="k">if</span><span class="p">(</span><span class="n">movements</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">==</span> <span class="s">"up"</span><span class="p">){</span>
+            <span class="n">i</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span>
+          <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">movements</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">==</span> <span class="s">"right"</span><span class="p">){</span>
+            <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+          <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">movements</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">==</span> <span class="s">"down"</span><span class="p">){</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+          <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="n">j</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span>
+          <span class="p">}</span>
+
+          <span class="k">if</span><span class="p">(</span><span class="n">is_valid</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">(</span><span class="n">visited</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">(</span><span class="n">visited</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)){</span>
+            <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">make_tuple</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">));</span>
+            <span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">(</span><span class="n">visited</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span> <span class="o">=</span> <span class="n">parent_i</span><span class="p">;</span>
+            <span class="n">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">(</span><span class="n">visited</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span> <span class="o">=</span> <span class="n">parent_j</span><span class="p">;</span>
+          <span class="p">}</span>
+
+        <span class="p">}</span>
+
+      <span class="p">}</span>
+
+      <span class="kt">int</span> <span class="n">m_i</span><span class="p">,</span> <span class="n">m_j</span><span class="p">;</span>
+
+      <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">){</span>
+        <span class="n">m_i</span> <span class="o">=</span> <span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">(</span><span class="n">maze_out</span><span class="p">);</span>
+        <span class="n">m_j</span> <span class="o">=</span> <span class="n">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">(</span><span class="n">maze_out</span><span class="p">);</span>
+
+        <span class="k">if</span><span class="p">(</span><span class="n">m_i</span> <span class="o">==</span> <span class="n">pos_i</span> <span class="o">&amp;&amp;</span> <span class="n">m_j</span> <span class="o">==</span> <span class="n">pos_j</span><span class="p">)</span>
+          <span class="k">break</span><span class="p">;</span>
+
+        <span class="n">result_path</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">maze_out</span><span class="p">);</span>
+        <span class="n">maze_out</span> <span class="o">=</span> <span class="n">visited</span><span class="p">[</span><span class="n">m_i</span><span class="p">][</span><span class="n">m_j</span><span class="p">];</span>
+      <span class="p">}</span>
+
+      <span class="k">return</span> <span class="n">result_path</span><span class="p">;</span>
+    <span class="p">}</span>
+
+<span class="p">};</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+
+  <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;&gt;</span> <span class="n">maze</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">{</span><span class="sc">'#'</span><span class="p">,</span> <span class="sc">'#'</span><span class="p">,</span> <span class="sc">'#'</span><span class="p">,</span> <span class="sc">'#'</span><span class="p">,</span> <span class="sc">'#'</span><span class="p">,</span> <span class="sc">' '</span><span class="p">,</span> <span class="sc">'#'</span><span class="p">},</span>
+    <span class="p">{</span><span class="sc">'#'</span><span class="p">,</span> <span class="sc">' '</span><span class="p">,</span> <span class="sc">' '</span><span class="p">,</span> <span class="sc">' '</span><span class="p">,</span> <span class="sc">'#'</span><span class="p">,</span> <span class="sc">' '</span><span class="p">,</span> <span class="sc">'#'</span><span class="p">},</span>
+    <span class="p">{</span><span class="sc">'#'</span><span class="p">,</span> <span class="sc">' '</span><span class="p">,</span> <span class="sc">'#'</span><span class="p">,</span> <span class="sc">'#'</span><span class="p">,</span> <span class="sc">'#'</span><span class="p">,</span> <span class="sc">' '</span><span class="p">,</span> <span class="sc">'#'</span><span class="p">},</span>
+    <span class="p">{</span><span class="sc">' '</span><span class="p">,</span> <span class="sc">' '</span><span class="p">,</span> <span class="sc">'1'</span><span class="p">,</span> <span class="sc">' '</span><span class="p">,</span> <span class="sc">' '</span><span class="p">,</span> <span class="sc">' '</span><span class="p">,</span> <span class="sc">'#'</span><span class="p">}</span>
+  <span class="p">};</span>
+
+  <span class="n">MazeBfs</span> <span class="n">mdfs</span><span class="p">(</span><span class="n">maze</span><span class="p">);</span>
+  <span class="n">vector</span><span class="o">&lt;</span><span class="n">tuple</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">result</span><span class="p">;</span>
+  <span class="n">result</span> <span class="o">=</span> <span class="n">mdfs</span><span class="p">.</span><span class="n">solve</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+
+  <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">result</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">&lt;&lt;</span> <span class="s">", "</span> <span class="o">&lt;&lt;</span> <span class="n">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">&lt;&lt;</span> <span class="s">" &lt;- "</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="n">result</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="o">&lt;&lt;</span> <span class="s">", "</span> <span class="o">&lt;&lt;</span> <span class="n">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="n">result</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="o">&lt;&lt;</span> <span class="s">" &lt;- "</span><span class="p">;</span>
+  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"3, 0"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
 
   </div></div>
 
@@ -155,9 +445,6 @@
   </main>
   
   <script type="text/javascript" src="/portfolio/assets/js/darkmode.js"></script>
-  
-  <script src="/portfolio/assets/js/simple-jekyll-search.min.js"></script>
-  <script src="/portfolio/assets/js/search.js"></script>
   
 </body>
 
