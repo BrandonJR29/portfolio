@@ -107,7 +107,7 @@ This project was full of lessons some of which were:
 - How to explain technical tasks to people who don't know something about this, using diagrams and looking for ways to explain some technology with daily life examples.
 - Another good lesson was how to handle responsibility and my answer to that is being honest with your team, despite the fact that I was alone in my area I felt that I wasn't alone, talking about my concerns about the embedded software development tasks the team helps me to implement them successfully.
 - Contribute to the creative process of the final product, also show that it's important to develop that part of the project too, how this could interact with people, which is the best way, etc.
-- Watching my partner's job, give me more knowledge than I had when I started the project, believe me watching other people's jobs could teach you something.
+- Watching my partner's job, give me more knowledge than I had when I started the project, belief me watching other people's jobs could teach you something.
 
 <div style="text-align: justify">
 Finally, I think for these reasons I feel happy and satisfied about the achievement of this project, how I made it as a leader of the Embedded Software development, as well as contributing to the team. If you have any doubts about this project please don't hesitate to ask me by sending me an email, I would be happy to answer your questions thanks for reading this. 

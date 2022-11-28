@@ -5,7 +5,7 @@ date:   2020-12-01 00:00:00 -0400
 categories: C/C++ MATLAB FreeRTOS Hardware Control Simulink
 ---
 <div style="text-align: justify">
-My experience in the University was great, I realized that I would be an Embedded Software Engineer when I was doing my final assessment that was designed and implement a Fuzzy Logic Controller for a Ball and Beam System. This time I used all the knowledge that I got in the classroom such as physics, math, programming, and control theory to finally built a controller with an awesome performance.
+My experience at the University was great, I realized that I would be an Embedded Software Engineer when I was doing my final assessment that was designed and implemented a Fuzzy Logic Controller for a Ball and Beam System. This time I used all the knowledge that I got in the classroom such as physics, math, programming, and control theory to finally built a controller with excellent performance.
 
 </div>
 
@@ -26,12 +26,12 @@ This was my first control system, so I was so excited to give my best on it, the
 ## Tasks
 
 <div style="text-align: justify">
-In this project I found a variety of tasks such as choosing the microcontroller, studying the system, making the hardware, designing and implementing the controllers. I couldn't say that it wasn't interesting, believe me, if you really love control systems this is the best way to start. As you can see these tasks infers another ones, I can summarize them in the next items:
+In this project, I found a variety of tasks such as choosing the microcontroller, studying the system, making the hardware, and designing and implementing the controllers. I couldn't say that it wasn't interesting, believe me if you really love control systems this is the best way to start. As you can see these tasks infer other ones, I can summarize them in the next items:
 </div>
 
 - Extract the interested variables of the systems, in this case, the ball position and the beam angle.
 - Designed the hardware filters for signal adjustments to the microcontroller.
-- Designed and simulate the controller obtaining a good performance from them.
+- Designed and simulate the controller obtaining good performance from them.
 - Development of the firmware in C/C++ with FreeRTOS.
 - Test the system with different set points.
 - Compare the result with the simulation through UART connection with MATLAB generating plots.
@@ -76,13 +76,13 @@ The test videos are in this [link](https://www.youtube.com/watch?v=K9Vu6w_IInE&l
 
 ## Next steps
 
-I think the next steps for this project could be about implement more control techniques, here I implemented two, maybe studying one more It could be found one with a better performance.
+I think the next steps for this project could be about implementing more control techniques, here I implemented two, maybe studying one more It could be found one with a better performance.
 
 
 ## Conclusions
 
 <div style="text-align: justify">
-Implement a thorough control system is a big challenge and also obtained relation between the simulation and the real values in the implementation, for me the lessons of this project were:
+Implementing a thorough control system is a big challenge and also obtained relation between the simulation and the real values in the implementation, for me the lessons of this project were:
 </div>
 
 - How to integrate the variables in a control system.
